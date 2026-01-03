@@ -8,13 +8,23 @@
 - **Demos:** 55+ Hands-On Practical Demonstrations
 
 ---
+## Course Architecture Diagrams
 
+All course concepts are explained with **interactive diagrams** (no PowerPoint slides). You can access them at below link
+
+**[🎨 Browse All Course Diagrams →](https://stacksimplify.github.io/course-image-previews/courses/aws-devops/)**
+
+- Visual explanations for every concept
+- Architecture flows and component interactions
+- Step-by-step process diagrams
+
+---
 ## [Course Modules - 55+ Hands-On Demos](https://links.stacksimplify.com/ultimate-aws-devops)
 
 ### **Section 1: Project Overview**
 **Module-01:** Complete Retail Store Microservices Architecture
 - Full-stack e-commerce application with 5 microservices
-- Multi-language stack (Java Spring Boot, Node.js)
+- Multi-language stack (Java Spring Boot, Node.js, Go)
 - Production-grade architecture patterns
 
 ---
@@ -43,11 +53,9 @@
 **Module-04:** Multi-Container Application Orchestration
 - Docker Compose basics with real microservices
 - Named volumes, networks, and health checks
-- Scaling services with `DEPLOY`
-- Network isolation: Frontend and Backend networks
+- Scaling services with DEPLOY
 - Startup order with dependencies and conditions
 - Profiles, links, and aliases
-- Development workflow with WATCH (`SYNC + RESTART`, `SYNC + REBUILD`)
 
 ---
 
@@ -55,7 +63,6 @@
 **Module-05:** Advanced Docker Builds
 - Docker BuildKit and `buildx` CLI
 - Building multi-platform images (AMD64, ARM64)
-- Docker Build Cloud for remote builds
 - Multi-stage builds for production optimization
 
 ---
@@ -78,7 +85,6 @@
 - EKS cluster provisioning
 - EKS node groups configuration
 - IAM roles for EKS cluster and worker nodes
-- VPC CNI, CoreDNS, kube-proxy setup
 - kubectl and kubeconfig configuration
 - Cluster authentication and authorization
 
@@ -88,7 +94,7 @@
 **Module-08:** Kubernetes Core Concepts
 1. Kubernetes Pods - Creating and Managing
 2. Kubernetes Deployments - Declarative Updates
-3. Kubernetes Services - ClusterIP, NodePort, LoadBalancer
+3. Kubernetes Services - ClusterIP
 4. Kubernetes ConfigMaps - Environment Variables and Configuration
 5. Kubernetes StatefulSets - Stateful Applications
    - **Additional Topics:** Labels, selectors, annotations, liveness probes, readiness probes, resource requests/limits
@@ -124,7 +130,6 @@
 2. Kubernetes Ingress with HTTP
 3. Kubernetes Ingress with HTTPS/SSL
    - Application Load Balancer (ALB) configuration
-   - Path-based and host-based routing
    - SSL/TLS termination with AWS Certificate Manager
    - Health checks and target group configuration
 
@@ -138,37 +143,37 @@
 4. Helm Package and Publish - Creating and Publishing Charts
 5. Helm Retail Store Deployment - Complete Application
 
-
 ---
 
 ### **Section 13: Terraform EKS Cluster with Add-Ons (1 Comprehensive Demo)**
 **Module-13:** Production-Ready EKS with Add-Ons
 - AWS Load Balancer Controller Add-On
 - EBS CSI Driver Add-On
-- EFS CSI Driver Add-On
-- Amazon VPC CNI Add-On
-- CoreDNS Add-On
-- kube-proxy Add-On
 - Pod Identity Agent Add-On
-- Complete add-ons lifecycle management with Terraform
+- AWS Load Balancer Controller
+- Secret Store CSI Driver
+- AWS Secrets and Configuration Provider (ASCP)
 
 ---
 
 ### **Section 14: Retail Store Microservices - AWS Data Plane (2 Demos)**
 **Module-14:** Real-World Microservices Deployment
-1. Retail Store AWS Data Plane Setup
-   - AWS RDS for MySQL (Production database)
-   - Amazon ElastiCache for Redis (Managed cache)
-   - Amazon MQ for RabbitMQ (Message broker)
-   - Terraform automation for AWS services
 
-2. Microservices with AWS Data Plane Integration
-   - UI Service (Spring Boot)
-   - Cart Service (Spring Boot + DynamoDB)
-   - Catalog Service (Spring Boot + MySQL/RDS)
-   - Orders Service (Spring Boot + MySQL/RDS)
-   - Checkout Service (Node.js + Redis + SQS)
-   - End-to-end integration and testing
+**1. Retail Store AWS Data Plane Setup**
+- AWS RDS for MySQL (Catalog Service Relational database)
+- Amazon ElastiCache for Redis (Checkout Service cache)
+- Amazon SQS for Messaging (Orders Service Message broker)
+- Amazon DynamoDB (Carts Service NoSQL Database)
+- Amazon RDS for PostgreSQL (Orders Service Relational Database)
+- Terraform automation for AWS services
+
+**2. Microservices with AWS Data Plane Integration**
+- UI Service (Spring Boot)
+- Carts Service (Spring Boot + DynamoDB)
+- Catalog Service (Go + Amazon MySQL/RDS)
+- Orders Service (Spring Boot + PostgreSQL/RDS)
+- Checkout Service (Node.js + Redis + SQS)
+- End-to-end integration and testing
 
 ---
 
@@ -191,27 +196,28 @@
 
 ### **Section 17: Autoscaling - Karpenter (4 Demos)**
 **Module-17:** Pod-Driven Node Autoscaling
-1. Karpenter Installation with Terraform
-   - Architecture deep dive
-   - IAM roles and permissions
-   - EventBridge and SQS for spot interruption handling
 
-2. Karpenter On-Demand Instances
-   - NodePools and EC2NodeClass configuration
-   - Right-sizing nodes for workloads
-   - Node consolidation
+**1. Karpenter Installation with Terraform**
+- Architecture deep dive
+- IAM roles and permissions
+- EventBridge and SQS for spot interruption handling
 
-3. Karpenter Spot Instances
-   - 70% cost savings with Spot
-   - Spot NodePool configuration
-   - Instance diversification strategy
+**2. Karpenter On-Demand Instances**
+- NodePools and EC2NodeClass configuration
+- Right-sizing nodes for workloads
+- Node consolidation
 
-4. Karpenter Spot Interruption Handling
-   - Understanding 2-minute Spot interruption warning
-   - EventBridge → SQS → Karpenter flow
-   - Graceful pod eviction and rescheduling
-   - PodDisruptionBudgets for zero downtime
-   - Production-ready Spot strategy
+**3. Karpenter Spot Instances**
+- 70% cost savings with Spot
+- Spot NodePool configuration
+- Instance diversification strategy
+
+**4. Karpenter Spot Interruption Handling**
+- Understanding 2-minute Spot interruption warning
+- EventBridge → SQS → Karpenter flow
+- Graceful pod eviction and rescheduling
+- PodDisruptionBudgets for zero downtime
+- Production-ready Spot strategy
 
 ---
 
@@ -220,8 +226,6 @@
 - Metrics Server installation
 - CPU-based and memory-based autoscaling
 - HPA + Karpenter integration (HPA scales pods, Karpenter scales nodes)
-- Load testing with Apache Bench
-- Custom metrics with Prometheus
 
 ---
 
@@ -237,54 +241,53 @@
 
 ### **Section 20: Observability - OpenTelemetry (4 Demos)**
 **Module-20:** Production Observability Stack
-1. EKS Environment with ADOT (AWS Distro for OpenTelemetry)
-   - ADOT Operator installation
-   - OTEL Collector architecture
 
-2. OpenTelemetry Traces with AWS X-Ray
-   - Auto-instrumentation for Java Spring Boot
-   - Auto-instrumentation for Node.js
-   - Trace sampling and filtering
-   - Cost optimization (85% reduction filtering health checks)
-   - Service maps and trace analysis
+**1. EKS Environment with ADOT (AWS Distro for OpenTelemetry)**
+- ADOT Operator installation
+- OTEL Collector architecture
 
-3. OpenTelemetry Logs with CloudWatch
-   - FluentBit integration
-   - Log aggregation and analysis
-   - CloudWatch Insights queries
+**2. OpenTelemetry Traces with AWS X-Ray**
+- Auto-instrumentation for Java Spring Boot
+- Auto-instrumentation for Node.js
+- Trace sampling and filtering
+- Cost optimization (85% reduction filtering health checks)
+- Service maps and trace analysis
 
-4. OpenTelemetry Metrics with AMP & AMG
-   - Amazon Managed Prometheus setup
-   - Amazon Managed Grafana setup
-   - Custom dashboards creation
-   - Application metrics and business KPIs
-   - Alerting with Prometheus
+**3. OpenTelemetry Logs with CloudWatch**
+- Log aggregation and analysis
+- CloudWatch Insights queries
+
+**4. OpenTelemetry Metrics with AMP & AMG**
+- Amazon Managed Prometheus setup
+- Amazon Managed Grafana setup
+- Custom dashboards creation
+- Application metrics and business KPIs
 
 ---
 
 ### **Section 21: DevOps CI/CD Pipeline (4 Demos)**
 **Module-21:** Complete CI/CD with GitOps
-1. CI with GitHub Actions and AWS ECR
-   - GitHub Actions workflow fundamentals
-   - Building Docker images
-   - Multi-architecture builds (AMD64, ARM64)
-   - OIDC authentication (No access keys!)
-   - Semantic versioning with Git tags
 
-2. ArgoCD Installation
-   - Installing ArgoCD on EKS
-   - ArgoCD architecture and components
-   - GitOps principles
+**1. CI with GitHub Actions and AWS ECR**
+- GitHub Actions workflow fundamentals
+- Building Docker images
+- OIDC authentication (No access keys!)
+- Semantic versioning with Git tags
 
-3. CD with ArgoCD and Helm
-   - Creating ArgoCD applications
-   - Helm integration
-   - Auto-sync and self-heal
+**2. ArgoCD Installation**
+- Installing ArgoCD on EKS
+- ArgoCD architecture and components
+- GitOps principles
 
-4. Complete CI/CD Flow Testing
-   - Code commit → Build → Push to ECR → Update Helm values → ArgoCD deploys
-   - End-to-end demonstration
-   - Rollback strategies
+**3. CD with ArgoCD and Helm**
+- Creating ArgoCD applications
+- Helm integration
+- Auto-sync and self-heal
+
+**4. Complete CI/CD Flow Testing**
+- Code commit → Build → Push to ECR → Update Helm values → ArgoCD deploys
+- End-to-end demonstration
+- Rollback strategies
 
 ---
 
@@ -311,7 +314,7 @@
    - ConfigMaps and Secrets management
    - Persistent Volumes and StatefulSets
    - Ingress controllers and load balancing
-   - RBAC, namespaces, and resource quotas
+   - RBAC, namespaces, and resource requests and limits
    - Liveness and readiness probes
 
 ### **4. Helm Package Manager**
@@ -362,7 +365,6 @@
    - High Availability: Multi-AZ, PodDisruptionBudgets
    - Monitoring and alerting
    - GitOps workflows
-   - Disaster recovery
 
 ---
 
