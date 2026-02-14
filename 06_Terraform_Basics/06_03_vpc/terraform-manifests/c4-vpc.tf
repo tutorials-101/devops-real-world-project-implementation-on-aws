@@ -61,10 +61,10 @@
 
 #VPC
 resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
-  tags = merge(var.tags, { Name = "${var.environment_name}-vpc" })
+  tags                 = merge(var.tags, { Name = "${var.environment_name}-vpc" })
   lifecycle {
     prevent_destroy = false
   }
@@ -86,7 +86,7 @@ resource "aws_subnet" "public" {
   cidr_block        = local.public_subnets[count.index]
   availability_zone = local.azs[count.index]
 
-  map_public_ip_on_launch = true 
+  map_public_ip_on_launch = true
 
   # Merge global tags with specific resource tags
   tags = merge(
@@ -125,12 +125,12 @@ resource "aws_eip" "nat" {
 # Resource-6: NAT Gateway
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  
+
   # Simplified: Direct list access (First public subnet)
-  subnet_id     = aws_subnet.public[0].id 
-  
+  subnet_id = aws_subnet.public[0].id
+
   tags = merge(var.tags, { Name = "${var.environment_name}-nat" })
-  
+
   # Keep this! It prevents race conditions during creation
   depends_on = [aws_internet_gateway.igw]
 }
@@ -149,7 +149,7 @@ resource "aws_route_table" "public_rt" {
 
 # Resource-8: Public Route Table Associate to Public Subnet
 resource "aws_route_table_association" "public_rt_assoc" {
-  for_each = aws_subnet.public
+  for_each       = aws_subnet.public
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public_rt.id
 }
@@ -166,7 +166,7 @@ resource "aws_route_table" "private_rt" {
 
 # Resource-10: Private Route Table Association to Private Subnet
 resource "aws_route_table_association" "private_rt_assoc" {
-  for_each = aws_subnet.private
+  for_each       = aws_subnet.private
   subnet_id      = each.value.id
   route_table_id = aws_route_table.private_rt.id
 }
