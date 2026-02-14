@@ -80,11 +80,11 @@ resource "aws_internet_gateway" "igw" {
 
 # Public Subnets
 resource "aws_subnet" "public" {
-  count = length(local.public_subnets)
+  for_each = { for idx, az in local.azs : az => local.public_subnets[idx] }
 
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.public_subnets[count.index]
-  availability_zone = local.azs[count.index]
+  cidr_block        = each.value
+  availability_zone = each.key
 
   map_public_ip_on_launch = true
 
@@ -92,8 +92,7 @@ resource "aws_subnet" "public" {
   tags = merge(
     var.tags,
     {
-      # We append the index (+1) so you can distinguish them in the console
-      Name = "${var.environment_name}-public-subnet-${count.index + 1}"
+      Name = "${var.environment_name}-public-${each.key}"
       Tier = "Public"
     }
   )
@@ -101,16 +100,16 @@ resource "aws_subnet" "public" {
 
 # Private Subnets
 resource "aws_subnet" "private" {
-  count = length(local.private_subnets)
+  for_each = { for idx, az in local.azs : az => local.private_subnets[idx] }
 
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.private_subnets[count.index]
-  availability_zone = local.azs[count.index]
+  cidr_block        = each.value
+  availability_zone = each.key
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.environment_name}-private-subnet-${count.index + 1}"
+      Name = "${var.environment_name}-private-${each.key}"
       Tier = "Private"
     }
   )
@@ -127,7 +126,7 @@ resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
 
   # Simplified: Direct list access (First public subnet)
-  subnet_id = aws_subnet.public[0].id
+  subnet_id = values(aws_subnet.public)[0].id
 
   tags = merge(var.tags, { Name = "${var.environment_name}-nat" })
 
