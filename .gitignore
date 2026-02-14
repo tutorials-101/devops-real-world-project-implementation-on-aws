@@ -4,6 +4,7 @@
 .terraform/
 .terraform.lock.hcl
 crash.log
+*.info
 
 # Terraform plan files (optional directory)
 plans-terraform/
