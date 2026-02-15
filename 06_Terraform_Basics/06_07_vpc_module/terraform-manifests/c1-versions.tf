@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0.0"
+  required_version = ">= 1.10.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -8,7 +8,7 @@ terraform {
   }
 # Remote Backend
   backend "s3" {
-    bucket         = "tfstate-dev-us-east-1-jpjtof"
+    bucket         = "tfstate-dev-us-east-1-jn8sj0"
     key            = "vpc/dev/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
@@ -19,3 +19,4 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+
