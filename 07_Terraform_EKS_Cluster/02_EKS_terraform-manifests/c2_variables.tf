@@ -33,7 +33,7 @@ variable "business_division" {
 variable "cluster_name" {
   description = "Name of the EKS cluster. Also used as a prefix in names of related resources."
   type        = string
-  default     = "eksdemo"
+  default     = "eks-cluster"
 }
 
 # Kubernetes version for the EKS control plane
@@ -81,6 +81,8 @@ variable "tags" {
   type        = map(string)
   default     = {
     Terraform = "true"
+    Project   = "EKS Cluster"
+    Owner     = "CloudSurfers.inc"
   }
 }
 
@@ -92,14 +94,14 @@ variable "tags" {
 variable "node_instance_types" {
   description = "List of EC2 instance types for the node group"
   type        = list(string)
-  default     = ["t3.medium"]
+  default     = ["t3.micro"]
 }
 
 # Capacity type for node group (ON_DEMAND or SPOT)
 variable "node_capacity_type" {
   description = "Instance capacity type: ON_DEMAND or SPOT"
   type        = string
-  default     = "ON_DEMAND"
+  default     = "SPOT"
 }
 
 # Root volume size (GiB) for worker nodes
